@@ -1,0 +1,14 @@
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/bin/Debug/net9.0/lb1c#
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/bin/Debug/net9.0/lb1c#.deps.json
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/bin/Debug/net9.0/lb1c#.runtimeconfig.json
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/bin/Debug/net9.0/lb1c#.dll
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/bin/Debug/net9.0/lb1c#.pdb
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.GeneratedMSBuildEditorConfig.editorconfig
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.AssemblyInfoInputs.cache
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.AssemblyInfo.cs
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.csproj.CoreCompileInputs.cache
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.dll
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/refint/lb1c#.dll
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.pdb
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.genruntimeconfig.cache
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/ref/lb1c#.dll
