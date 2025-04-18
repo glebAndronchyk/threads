@@ -48,8 +48,8 @@ class WorkerThreadsController extends Thread {
     private List<ThreadConfiguration> generateThreads(int count) {
         Random random = new Random();
         List<ThreadConfiguration> result = new ArrayList<ThreadConfiguration>();
-        int min = 5;
-        int max = 10;
+        int min = 20;
+        int max = 50;
 
         for (int i = 0; i < count; i++) {
             int runDuration = random.nextInt(max - min + 1) + min;
