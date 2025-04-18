@@ -9,13 +9,13 @@ namespace lb1 {
 
         public bool IsAlive 
         {
-            get { lock(this) { return this._thread.IsAlive; }}
+            get { return this._thread.IsAlive; }
         }
 
         public bool IsInterrupted 
         {
             get { lock(this) { return this._isInterrupted; }}
-            set { lock(this) { this._isInterrupted = value; }}
+            private set { lock(this) { this._isInterrupted = value; }}
         }
 
         public WorkerThread(int id, double step) {
@@ -46,7 +46,7 @@ namespace lb1 {
             do {
                 this.Sum += this._step;
                 this.Iterations++;
-            } while (!this._isInterrupted);
+            } while (!this.IsInterrupted);
 
             Console.WriteLine($"{GetWorkerThreadName()}: {GetWorkerThreadResult()}\n------");
             this._thread.Interrupt();

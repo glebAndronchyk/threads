@@ -7,11 +7,11 @@ namespace lb1 {
         public bool IsFinished
         {
             get { lock(this) { return this._isFinished; }}
-            set { lock(this) { this._isFinished = value; }}
+            private set { lock(this) { this._isFinished = value; }}
         }
 
-        public WorkerThreadsController(List<ThreadConfiguration> threads) {
-            this._threads = threads;
+        public WorkerThreadsController(int threadsAmount) {
+            this._threads = this.GenerateThreads(threadsAmount);
         }
 
         public void Run() {
@@ -22,21 +22,39 @@ namespace lb1 {
                     entry.thread.Start();
                 });
 
-                while (!this._isFinished) {
-                    this._isFinished = true;
+                while (!this.IsFinished) {
+                    this.IsFinished = true;
 
                     this._threads.ForEach((entry) => {
                         if (entry.thread.IsAlive) {
-                            this._isFinished = false;
+                            this.IsFinished = false;
 
                             long elapsed = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - now;
-                            if (elapsed >= entry.timeoutMs) {
+                            if (elapsed >= entry.timeoutMs && !entry.thread.IsInterrupted) {
+                                // System.Console.WriteLine(entry.timeoutMs);
                                 entry.thread.Interrupt();
                             }
                         }
                     });
                 }
             }).Start();
+        }
+
+        private List<ThreadConfiguration> GenerateThreads(int count) {
+            var random = new Random();
+            var result = new List<ThreadConfiguration>();
+            int min = 20;
+            int max = 50;
+
+            for (int i = 0; i < count; i++)
+            {
+                Random rnd = new Random();
+                int runDuration = rnd.Next(max - min + 1) + min;
+                double step = (rnd.Next(max - min + 1) + min) * 10;
+                result.Add(new ThreadConfiguration(new WorkerThread(i, step), runDuration * 1000));
+            }
+
+            return result;
         }
     }
 }

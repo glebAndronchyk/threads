@@ -12,3 +12,4 @@
 /Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.pdb
 /Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.genruntimeconfig.cache
 /Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/ref/lb1c#.dll
+/Users/h.andronchyk/projects/threading-labs/lb1/c#/lb1c#/obj/Debug/net9.0/lb1c#.sourcelink.json

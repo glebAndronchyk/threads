@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 class WorkerThreadsController extends Thread {
     private List<ThreadConfiguration> _threads;
@@ -8,8 +10,12 @@ class WorkerThreadsController extends Thread {
         return this._isFinished;
     }
 
-    public WorkerThreadsController(List<ThreadConfiguration> threads) {
-        this._threads = threads;
+    private synchronized void setIsFinished(boolean value) {
+        this._isFinished = value;
+    }
+
+    public WorkerThreadsController(int threadsAmount) {
+        this._threads = this.generateThreads(threadsAmount);
         this.run();
     }
 
@@ -22,18 +28,35 @@ class WorkerThreadsController extends Thread {
         });
 
         while (!this._isFinished) {
-            this._isFinished = true;
+            this.setIsFinished(true);
 
             this._threads.forEach((entry) -> {
                 if (entry.thread.isAlive()) {
-                    this._isFinished = false;
+                    this.setIsFinished(false);
 
-                    long elapsed = System.currentTimeMillis() - now;
-                    if (elapsed >= entry.timeoutMs) {
-                        entry.thread.interrupt();
+                    if (!entry.thread.isInterrupted()) {
+                        long elapsed = System.currentTimeMillis() - now;
+                        if (elapsed >= entry.timeoutMs) {
+                            entry.thread.interrupt();
+                        }
                     }
                 }
             });
         }
+    }
+
+    private List<ThreadConfiguration> generateThreads(int count) {
+        Random random = new Random();
+        List<ThreadConfiguration> result = new ArrayList<ThreadConfiguration>();
+        int min = 5;
+        int max = 10;
+
+        for (int i = 0; i < count; i++) {
+            int runDuration = random.nextInt(max - min + 1) + min;
+            double step = (random.nextInt(max - min + 1) + min) * 10.0;
+            result.add(new ThreadConfiguration(new WorkerThread(i, step), runDuration * 1000));
+        }
+
+        return result;
     }
 }

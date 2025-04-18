@@ -19,13 +19,13 @@ public class WorkerThread extends Thread {
 
     @Override
     public void run() {
-        long start = System.currentTimeMillis();
+        // long start = System.currentTimeMillis();
         do {
             this.sum += this.step;
             this.iterations++;
         } while (!Thread.currentThread().isInterrupted());
 
-        System.out.println(this.getWorkerThreadName() + ": " + this.getWorkerThreadResult() + "\n" + "\n------");
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(this.getWorkerThreadName() + ": " + this.getWorkerThreadResult() + "\n------");
+        // System.out.println(System.currentTimeMillis() - start);
     }
 }
