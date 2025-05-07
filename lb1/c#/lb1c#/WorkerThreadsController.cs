@@ -43,8 +43,8 @@ namespace lb1 {
         private List<ThreadConfiguration> GenerateThreads(int count) {
             var random = new Random();
             var result = new List<ThreadConfiguration>();
-            int min = 20;
-            int max = 50;
+            int min = 1;
+            int max = 10;
 
             for (int i = 0; i < count; i++)
             {
