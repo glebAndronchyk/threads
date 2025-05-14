@@ -44,7 +44,7 @@ public class ComputableArray {
 
     public int[] iterate(int start, int end) {
         int min = Integer.MAX_VALUE;
-        int minIndex = 0;
+        int minIndex = -1;
         for (int i = start; i < end; i++) {
             int entry = this.arr[i];
             if (min > entry) {
