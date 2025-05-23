@@ -6,4 +6,8 @@ public class Sit {
         this.leftFork = leftFork;
         this.rightFork = rightFork;
     }
+
+    public boolean isLastIn(int total) {
+        return  this.leftFork == total;
+    }
 }

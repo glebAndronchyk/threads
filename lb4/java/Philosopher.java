@@ -20,7 +20,7 @@ public class Philosopher extends Thread {
 
     private void eat() {
         try {
-            Thread.sleep((long) (Math.random() * 10_000));
+            Thread.sleep((long) (Math.random() * 1000));
         } catch (InterruptedException e) {
         }
     }
