@@ -1,8 +1,8 @@
 class Main {
     public static void main (String[] args) {
-        var consumes = 5;
-        var storageCapacity = 20;
-        var totalOperators = 1;
+        var consumes = 3;
+        var storageCapacity = 10;
+        var totalOperators = 2;
 
         var storage = new Storage(storageCapacity);
 

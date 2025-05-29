@@ -32,23 +32,16 @@ public class Table {
     }
 
     public void takeForks(Sit sit) {
-        try {
+        if (this._waiter.isPresent()) {
+            this._waiter.get().requestPermissionToConsume();
+        }
+        
+        var isLastSit = sit.isLastIn(this._forks.length - 1);
 
-            if (this._waiter.isPresent()) {
-                this._waiter.get().requestPermissionToConsume();
-            }
-            
-            var isLastSit = sit.leftFork == this._forks.length - 1;
-
-            if (isLastSit) {
-                this._forks[sit.rightFork].acquire();
-                this._forks[sit.leftFork].acquire();
-            } else {
-                this._forks[sit.leftFork].acquire();
-                this._forks[sit.rightFork].acquire();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (isLastSit) {
+            acquireRTL(sit);
+        } else {
+            acquireLTR(sit);
         }
     }
 
@@ -59,5 +52,25 @@ public class Table {
 
         this._forks[sit.leftFork].release();
         this._forks[sit.rightFork].release();
+    }
+
+    private void acquireRTL(Sit sit) {
+        try {
+            this._forks[sit.rightFork].acquire();
+            this._forks[sit.leftFork].acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    private void acquireLTR(Sit sit) {
+        try {
+            this._forks[sit.leftFork].acquire();
+            this._forks[sit.rightFork].acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

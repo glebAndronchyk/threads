@@ -3,9 +3,9 @@ namespace lb3;
 
 class Program {
     public static void Main (String[] args) {
-        var consumes = 5;
-        var storageCapacity = 20;
-        var totalOperators = 10;
+        var consumes = 3;
+        var storageCapacity = 10;
+        var totalOperators = 2;
 
         var storage = new Storage(storageCapacity);
 
