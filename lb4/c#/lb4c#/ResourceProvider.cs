@@ -2,7 +2,7 @@ namespace lb4;
 
 public class ResourceProvider
 {
-    private readonly Semaphore[] _resources;
+    private readonly SemaphoreSlim[] _resources;
 
     public GroupedResource this[int index]
     {
@@ -26,11 +26,20 @@ public class ResourceProvider
     public ResourceProvider(int totalConsumers)
     {
         var onePerConsumerPermit = 1;
-        this._resources = new Semaphore[totalConsumers];
+        this._resources = new SemaphoreSlim[totalConsumers];
         for (int i = 0; i < this._resources.Length; i++)
         {
-            this._resources[i] = new Semaphore(onePerConsumerPermit, onePerConsumerPermit);
+            this._resources[i] = new SemaphoreSlim(onePerConsumerPermit, onePerConsumerPermit);
         }
+    }
+
+    public bool CheckAvailabilityOfConsumerRelatedResource(GroupedResource resourceGroup)
+    {
+        var onePerConsumerPermit = 1;
+        var isLeftAvailable = this._resources[resourceGroup.LeftResource].CurrentCount == onePerConsumerPermit;
+        var isRightAvailable = this._resources[resourceGroup.RightResource].CurrentCount == onePerConsumerPermit;
+
+        return isLeftAvailable && isRightAvailable;
     }
 
     public void TakeConsumerRelatedResource(GroupedResource resourceGroup)
@@ -47,20 +56,22 @@ public class ResourceProvider
         }
     }
 
+    // the problem is here
+
     public void FreeResourceGroup(GroupedResource resourceGroup)
     {
         this._resources[resourceGroup.LeftResource].Release();
         this._resources[resourceGroup.RightResource].Release();
     }
     
-    private void AcquireRTL(GroupedResource resourceGroup) {
-        this._resources[resourceGroup.LeftResource].WaitOne();
-        this._resources[resourceGroup.RightResource].WaitOne();
+    private void AcquireLTR(GroupedResource resourceGroup) {
+        this._resources[resourceGroup.LeftResource].Wait();
+        this._resources[resourceGroup.RightResource].Wait();
     }
 
 
-    private void AcquireLTR(GroupedResource resourceGroup) {
-        this._resources[resourceGroup.RightResource].WaitOne();
-        this._resources[resourceGroup.LeftResource].WaitOne();
+    private void AcquireRTL(GroupedResource resourceGroup) {
+        this._resources[resourceGroup.RightResource].Wait();
+        this._resources[resourceGroup.LeftResource].Wait();
     }
 }

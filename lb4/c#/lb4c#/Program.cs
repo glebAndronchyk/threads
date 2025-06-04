@@ -1,7 +1,7 @@
 ﻿using lb4;
 
 var totalConsumers = 5;
-var saturationLimit = 10;
+var saturationLimit = 3;
 
 var table = new ResourceProvider(totalConsumers);
 var mediator = new Mediator(table);

@@ -7,7 +7,7 @@ public class Mediator
 
     public Mediator(ResourceProvider resourceProvider)
     {
-        var totalConsumers = resourceProvider.TotalConsumers;
+        var totalConsumers = resourceProvider.TotalConsumers - 1;
 
         this._resourceProvider = resourceProvider;
         this._consumingSemaphore = new Semaphore(totalConsumers, totalConsumers);
@@ -22,8 +22,8 @@ public class Mediator
 
     public void ReleaseConsume(GroupedResource resourceGroup)
     {
-        this._consumingSemaphore.Release();
         this._resourceProvider.FreeResourceGroup(resourceGroup);
+        this._consumingSemaphore.Release();
         System.Console.WriteLine($"{Thread.CurrentThread.Name}: released resource - {resourceGroup}");
     }
 }
